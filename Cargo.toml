@@ -10,7 +10,6 @@ crate-type = ["staticlib"]
 path = "src/kernel.rs"
 
 [dependencies]
-rust-libcore = "0.0.3"
 
 [build-dependencies]
 nasm-rs = "0.0.6"

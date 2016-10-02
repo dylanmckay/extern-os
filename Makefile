@@ -7,12 +7,12 @@ LINKER_SCRIPT = support/linker.ld
 all: kernel
 
 clean:
-	cargo clean
+	xargo clean
 
 rebuild: clean all
 
 kernel:
-	cargo build --target $(TARGET).json
+	xargo build --target $(TARGET)
 	i686-elf-gcc -T $(LINKER_SCRIPT) -o kernel.elf -ffreestanding -O2 -nostdlib $(BOOT_OBJ) $(KERNEL_LIB) -lgcc
 
 run: kernel
