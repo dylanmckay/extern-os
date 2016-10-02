@@ -5,9 +5,15 @@ authors = ["Dylan McKay <dylanmckay34@gmail.com>"]
 
 build = "build.rs"
 
+[lib]
+crate-type = ["staticlib"]
+
 [dependencies]
 rust-libcore = "0.0.3"
 
 [build-dependencies]
 nasm-rs = "0.0.6"
+
+[profile.dev]
+panic = 'abort'
 
