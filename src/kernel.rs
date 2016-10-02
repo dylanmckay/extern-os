@@ -8,6 +8,7 @@
 #![no_std]
 
 pub mod vga;
+pub mod interrupt;
 pub mod support;
 pub mod rlibc;
 
