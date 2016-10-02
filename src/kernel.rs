@@ -8,6 +8,7 @@
 #![no_std]
 
 pub mod vga;
+pub mod support;
 
 /// `libc` functions.
 ///
@@ -24,15 +25,3 @@ pub extern "C" fn kernel_main(_argc: isize, _argv: *const *const u8) -> isize {
         }
     }
 }
-
-#[lang = "eh_personality"]
-extern fn eh_personality() {}
-
-#[lang = "panic_fmt"]
-extern fn panic_fmt() -> ! { loop {} }
-
-#[no_mangle]
-pub extern "C" fn __mulodi4() {
-    unimplemented!();
-}
-
