@@ -7,7 +7,7 @@ build = "build.rs"
 
 [lib]
 crate-type = ["staticlib"]
-path = "src/entry.rs"
+path = "src/kernel.rs"
 
 [dependencies]
 rust-libcore = "0.0.3"
