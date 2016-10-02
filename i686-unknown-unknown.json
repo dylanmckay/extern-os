@@ -22,6 +22,7 @@
     "no-default-libraries": true,
     "position-independent-executables": false,
     "has-elf-tls": false,
-    "linker": "i686-elf-gcc"
+    "linker": "i686-elf-gcc",
+    "panic-strategy": "abort"
 }
 
