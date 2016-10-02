@@ -7,8 +7,12 @@
 
 #![no_std]
 
-pub mod libc;
 pub mod vga;
+
+/// `libc` functions.
+///
+/// Taken from the [rlibc](https://crates.io/crates/rlibc) crate.
+pub mod rlibc;
 
 #[no_mangle]
 pub extern "C" fn kernel_main(_argc: isize, _argv: *const *const u8) -> isize {

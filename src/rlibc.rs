@@ -1,3 +1,6 @@
+// Taken frmo the RLibc crate because it can't use our `cargo-libcore` dependency.
+// https://crates.io/crates/rlibc
+
 // Copyright 2014 The Rust Project Developers. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
 // http://rust-lang.org/COPYRIGHT.
