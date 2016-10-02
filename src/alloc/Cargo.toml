@@ -1,0 +1,11 @@
+[package]
+name = "extern-os-allocator"
+version = "0.1.0"
+authors = ["Dylan McKay <dylanmckay34@gmail.com>"]
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+linked_list_allocator = "0.2.2"
+

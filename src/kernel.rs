@@ -4,8 +4,12 @@
 #![feature(asm)]
 #![feature(naked_functions)]
 #![feature(conservative_impl_trait)]
+#![feature(collections)]
 
 #![no_std]
+
+extern crate extern_os_allocator;
+extern crate collections;
 
 pub mod vga;
 pub mod interrupt;

@@ -10,6 +10,7 @@ crate-type = ["staticlib"]
 path = "src/kernel.rs"
 
 [dependencies]
+extern-os-allocator = { path = "src/alloc" }
 
 [build-dependencies]
 nasm-rs = "0.0.6"
