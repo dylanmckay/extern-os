@@ -9,10 +9,6 @@
 
 pub mod vga;
 pub mod support;
-
-/// `libc` functions.
-///
-/// Taken from the [rlibc](https://crates.io/crates/rlibc) crate.
 pub mod rlibc;
 
 #[no_mangle]
