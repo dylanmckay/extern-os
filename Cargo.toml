@@ -6,6 +6,7 @@ authors = ["Dylan McKay <dylanmckay34@gmail.com>"]
 build = "build.rs"
 
 [dependencies]
+rust-libcore = "0.0.3"
 
 [build-dependencies]
 nasm-rs = "0.0.6"
