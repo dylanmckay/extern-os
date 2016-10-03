@@ -1,5 +1,7 @@
 use vga;
 
+use core::fmt;
+
 pub struct Terminal
 {
     vga: vga::Buffer,
@@ -49,6 +51,11 @@ impl Terminal
         }
     }
 
+    pub fn position(&mut self, x: usize, y: usize) {
+        self.row = y;
+        self.column = x;
+    }
+
     pub fn puts(&mut self, s: &str) {
         for c in s.chars() { self.putc(c) }
     }
@@ -57,7 +64,18 @@ impl Terminal
         self.vga.clear(vga::Cell {
             character: ' ' as u8,
             style: self.style,
-        })
+        });
+
+        self.row = 0;
+        self.column = 0;
+    }
+}
+
+impl fmt::Write for Terminal
+{
+    fn write_str(&mut self, s: &str) -> Result<(), fmt::Error> {
+        self.puts(s);
+        Ok(())
     }
 }
 

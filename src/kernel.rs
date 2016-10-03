@@ -18,16 +18,28 @@ pub mod vga;
 pub mod interrupt;
 pub mod gdt;
 pub mod table;
+pub mod bda;
 pub mod terminal;
 pub mod support;
 pub mod rlibc;
+pub mod prelude;
+#[macro_use]
+pub mod debug;
+
+use collections::string::ToString;
+use collections::string::String;
+use core::fmt;
 
 #[no_mangle]
 pub extern "C" fn kernel_main() {
     let vga = vga::Buffer::new();
     let mut terminal = terminal::Terminal::new(vga);
+    debug::initialize(terminal);
 
-    terminal.clear();
-    terminal.puts("foo bar baz bing");
+    loop {
+        let bda = bda::bios_data_area();
+
+        debug!("Hello {}!", "world");
+    }
 }
 
