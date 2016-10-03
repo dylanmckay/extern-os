@@ -32,6 +32,8 @@ pub mod prelude;
 #[macro_use]
 pub mod debug;
 pub mod error;
+pub mod a20;
+pub mod protected;
 
 #[no_mangle]
 pub extern "C" fn kernel_main() {
@@ -42,6 +44,9 @@ pub extern "C" fn kernel_main() {
     debug::initialize(terminal);
 
     setup_gdt();
+    interrupt::disable_all();
+    a20::enable();
+    protected::enable();
 
     for _ in 0.. {
         let bda = bios::data_area();
