@@ -1,8 +1,8 @@
-const ADDRESS: *const BiosDataArea = 0x0400 as *const _;
+const ADDRESS: *const DataArea = 0x0400 as *const _;
 
-const BIOS_DATA_AREA: *const BiosDataArea = ADDRESS as *const BiosDataArea;
+const BIOS_DATA_AREA: *const DataArea = ADDRESS as *const DataArea;
 
-pub fn bios_data_area() -> BiosDataArea {
+pub fn data_area() -> DataArea {
     unsafe {
         *BIOS_DATA_AREA
     }
@@ -10,7 +10,7 @@ pub fn bios_data_area() -> BiosDataArea {
 
 #[repr(C, packed)]
 #[derive(Copy, Clone, Debug)]
-pub struct BiosDataArea
+pub struct DataArea
 {
     pub serial_ports: [u16; 4],
     pub parallel_ports: [u16; 3],

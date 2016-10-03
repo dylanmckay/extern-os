@@ -20,7 +20,7 @@ pub use self::error::Error;
 pub mod vga;
 pub mod interrupt;
 pub mod table;
-pub mod bda;
+pub mod bios;
 pub mod terminal;
 pub mod support;
 pub mod prelude;
@@ -39,7 +39,7 @@ pub extern "C" fn kernel_main() {
     debug::initialize(terminal);
 
     for i in 0.. {
-        let bda = bda::bios_data_area();
+        let bda = bios::data_area();
 
         debug!("Hello {}! {}\n", "world", i);
     }
