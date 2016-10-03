@@ -5,14 +5,19 @@
 #![feature(naked_functions)]
 #![feature(conservative_impl_trait)]
 #![feature(collections)]
+#![feature(alloc)]
+#![feature(drop_types_in_const)]
 
 #![no_std]
 
 extern crate extern_os_allocator;
 extern crate collections;
+extern crate alloc;
 
 pub mod vga;
 pub mod interrupt;
+pub mod gdt;
+pub mod table;
 pub mod terminal;
 pub mod support;
 pub mod rlibc;
