@@ -17,6 +17,7 @@ extern crate rlibc;
 
 pub use self::error::Error;
 
+pub mod io;
 pub mod vga;
 pub mod interrupt;
 pub mod table;
