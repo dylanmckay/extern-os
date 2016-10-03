@@ -28,20 +28,16 @@ pub mod prelude;
 pub mod debug;
 pub mod error;
 
-use collections::string::ToString;
-use collections::string::String;
-use core::fmt;
-
 #[no_mangle]
 pub extern "C" fn kernel_main() {
     let vga = vga::Buffer::new();
-    let mut terminal = terminal::Terminal::new(vga);
+    let terminal = terminal::Terminal::new(vga);
     debug::initialize(terminal);
 
-    for i in 0.. {
+    for _ in 0.. {
         let bda = bios::data_area();
 
-        debug!("Hello {}! {}\n", "world", i);
+        debug!("Data: {:?}", bda);
     }
 }
 
