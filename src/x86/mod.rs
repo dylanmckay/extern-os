@@ -9,7 +9,7 @@ pub struct Kernel;
 impl ::Kernel for Kernel
 {
     fn initialize() {
-        ::setup_gdt();
+        ::table::gdt::setup::setup();
         ::interrupt::disable_all();
         a20::enable();
         protected::enable();

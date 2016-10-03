@@ -3,6 +3,7 @@ pub use self::flags::*;
 
 pub mod access;
 pub mod flags;
+pub mod setup;
 
 use table;
 
