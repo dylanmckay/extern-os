@@ -41,7 +41,7 @@ pub extern "C" fn kernel_main() {
     terminal.clear();
     debug::initialize(terminal);
 
-    build_gdt();
+    setup_gdt();
 
     for _ in 0.. {
         let bda = bios::data_area();
@@ -49,10 +49,30 @@ pub extern "C" fn kernel_main() {
     }
 }
 
-fn build_gdt() {
+fn setup_gdt() {
+    use table::gdt;
+
     let entries = [
         // The null entry.
-        table::gdt::Entry { base: 0, limit: 0, access: 0, flags: 0 },
+        gdt::Entry::null(),
+
+        /// The entry for ring0 code
+        gdt::Entry {
+            base: 0,
+            limit: 0x000fffff,
+            access: gdt::Access::executable(gdt::access::Ring::Ring0, gdt::access::Conforming::Equal, false),
+            flags: gdt::Flags { granularity: gdt::flags::Granularity::Page, size: gdt::flags::Size::Bit32 },
+        },
+        /// The entry for ring0 data
+        gdt::Entry {
+            base: 0,
+            limit: 0x000fffff,
+            access: gdt::Access::data(gdt::access::Ring::Ring0, gdt::access::Direction::GrowsUp, true),
+            flags: gdt::Flags { granularity: gdt::flags::Granularity::Page, size: gdt::flags::Size::Bit32 },
+        },
     ];
+
+    *gdt::get() = entries.iter().cloned().collect();
+    gdt::get().enable();
 }
 

@@ -66,3 +66,14 @@ impl<T: TableKind> Table<T>
     }
 }
 
+impl<T> FromIterator<T::Entry> for Table<T>
+    where T: TableKind
+{
+    fn from_iter<I>(iter: I) -> Self where I: IntoIterator<Item=T::Entry> {
+        Table {
+            enabled: false,
+            entries: iter.into_iter().collect(),
+        }
+    }
+}
+

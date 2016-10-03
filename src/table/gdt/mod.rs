@@ -1,3 +1,9 @@
+pub use self::access::*;
+pub use self::flags::*;
+
+pub mod access;
+pub mod flags;
+
 use table;
 
 static mut GDT: Option<table::Table<Gdt>> = None;
@@ -20,21 +26,9 @@ pub struct Entry
     /// 20-bit limit.
     pub limit: u32,
     /// The access byte.
-    pub access: u8,
+    pub access: Access,
     /// The flags.
-    pub flags: u8,
-}
-
-#[derive(Copy, Clone)]
-pub struct Access
-{
-    pub present: bool,
-    pub privilege: u8,
-    pub executable: bool,
-    pub direction_confirming: bool,
-    pub readable_writable: bool,
-    pub accessed: bool,
-    pub granularity: bool,
+    pub flags: Flags,
 }
 
 #[repr(C, packed)]
@@ -42,9 +36,21 @@ pub struct RawEntry(pub [u8; 8]);
 
 impl Entry
 {
+    pub fn null() -> Self {
+        Entry {
+            base: 0,
+            limit: 0,
+            access: Access::null(),
+            flags: Flags::null(),
+        }
+    }
+
     pub fn encode(&self) -> RawEntry {
+        let flags = self.flags.encode();
+        let access = self.access.encode();
+
         assert!(self.limit <= 0b11111_11111_11111_11111, "GDT entry limit is too big");
-        assert!(self.flags <= 0b1111, "GDT entry flag mask out of range");
+        assert!(flags <= 0b1111, "GDT entry flag mask out of range");
 
         let mut bytes = [0u8; 8];
 
@@ -60,10 +66,10 @@ impl Entry
         bytes[7] = ((self.base & 0xff000000) >> 24) as u8;
 
         // Encode the access byte.
-        bytes[5] = self.access;
+        bytes[5] = access;
 
         // Encode the flags.
-        bytes[6] |= self.flags & 0b1111;
+        bytes[6] |= flags & 0b1111;
 
         RawEntry(bytes)
     }
