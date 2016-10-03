@@ -14,6 +14,8 @@ extern crate extern_os_allocator;
 extern crate collections;
 extern crate alloc;
 
+pub use self::error::Error;
+
 pub mod vga;
 pub mod interrupt;
 pub mod gdt;
@@ -25,6 +27,7 @@ pub mod rlibc;
 pub mod prelude;
 #[macro_use]
 pub mod debug;
+pub mod error;
 
 use collections::string::ToString;
 use collections::string::String;
