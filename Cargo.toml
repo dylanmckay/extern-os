@@ -10,6 +10,7 @@ crate-type = ["staticlib"]
 path = "src/kernel.rs"
 
 [dependencies]
+rlibc = "1.0.0"
 extern-os-allocator = { path = "src/alloc" }
 
 [build-dependencies]

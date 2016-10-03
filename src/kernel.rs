@@ -13,6 +13,7 @@
 extern crate extern_os_allocator;
 extern crate collections;
 extern crate alloc;
+extern crate rlibc;
 
 pub use self::error::Error;
 
@@ -23,7 +24,6 @@ pub mod table;
 pub mod bda;
 pub mod terminal;
 pub mod support;
-pub mod rlibc;
 pub mod prelude;
 #[macro_use]
 pub mod debug;
