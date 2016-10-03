@@ -34,6 +34,25 @@ pub mod debug;
 pub mod error;
 pub mod x86;
 
+/// A kernel.
+pub trait Kernel
+{
+    fn initialize();
+
+    fn step();
+
+    fn deinitialize();
+
+    #[allow(unreachable_code)]
+    fn run() {
+        Self::initialize();
+        loop { Self::step(); }
+        Self::deinitialize();
+    }
+}
+
+pub type CurrentKernel = x86::Kernel;
+
 #[no_mangle]
 pub extern "C" fn kernel_main() {
     let vga = vga::Buffer::new();
@@ -42,15 +61,7 @@ pub extern "C" fn kernel_main() {
     terminal.clear();
     debug::initialize(terminal);
 
-    setup_gdt();
-    interrupt::disable_all();
-    x86::a20::enable();
-    x86::protected::enable();
-
-    for _ in 0.. {
-        let bda = bios::data_area();
-        debug!("Data: {:?}", bda.serial_ports);
-    }
+    CurrentKernel::run();
 }
 
 fn setup_gdt() {
