@@ -19,7 +19,6 @@ pub use self::error::Error;
 
 pub mod vga;
 pub mod interrupt;
-pub mod gdt;
 pub mod table;
 pub mod bda;
 pub mod terminal;

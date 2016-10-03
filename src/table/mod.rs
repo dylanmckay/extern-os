@@ -1,4 +1,6 @@
-use collections::Vec;
+pub mod gdt;
+
+use prelude::*;
 use core::mem;
 
 /// A type of table.
