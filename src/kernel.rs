@@ -24,7 +24,6 @@ pub use self::error::Error;
 pub mod io;
 pub mod vga;
 pub mod drivers;
-pub mod interrupt;
 pub mod table;
 pub mod bios;
 pub mod support;
