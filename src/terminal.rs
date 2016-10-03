@@ -1,3 +1,4 @@
+use prelude::*;
 use vga;
 
 use core::fmt;
@@ -23,13 +24,53 @@ impl Terminal
         }
     }
 
+    pub fn scroll(&mut self, offset: isize) {
+        if offset == 0 { return };
+
+        let(width, height) = self.vga.dimensions();
+
+        let mut rows: Vec<Vec<vga::Cell>> = (0..height).into_iter().map(|row_number| {
+            (0..width).into_iter().map(|column_number| self.vga[(column_number, row_number)]).collect()
+        }).collect();
+
+        let empty_row: Vec<_> = (0..width).into_iter().map(|_| vga::Cell {
+            character: ' ' as u8,
+            style: self.style,
+        }).collect();
+
+        if offset > 0 {
+            for _ in 0..offset {
+                rows.insert(0, empty_row.clone());
+            }
+
+            rows.drain(height..);
+        } else {
+            let rows_to_remove = -offset as usize;
+            rows.drain(0..rows_to_remove);
+
+            while rows.len() < height {
+                rows.push(empty_row.clone());
+            }
+        }
+
+        for (row_number, row) in rows.into_iter().enumerate() {
+            for (column_number, cell) in row.into_iter().enumerate() {
+                self.vga[(column_number, row_number)] = cell;
+            }
+        }
+    }
+
     pub fn putc(&mut self, c: char) {
-        let (width, _) = self.vga.dimensions();
+        let (width, height) = self.vga.dimensions();
 
         match c {
             '\n' => {
                 self.row += 1;
                 self.column = 0;
+
+                if self.row >= height {
+                    self.scroll(-1);
+                }
             },
             '\r' => self.column = 0,
             '\t' => {

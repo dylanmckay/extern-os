@@ -36,10 +36,10 @@ pub extern "C" fn kernel_main() {
     let mut terminal = terminal::Terminal::new(vga);
     debug::initialize(terminal);
 
-    loop {
+    for i in 0.. {
         let bda = bda::bios_data_area();
 
-        debug!("Hello {}!", "world");
+        debug!("Hello {}! {}\n", "world", i);
     }
 }
 

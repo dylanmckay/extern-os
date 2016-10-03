@@ -85,7 +85,7 @@ impl Style
 }
 
 #[repr(C, packed)]
-#[derive(Clone)]
+#[derive(Copy, Clone)]
 pub struct Cell {
     pub character: u8,
     pub style: Style,
