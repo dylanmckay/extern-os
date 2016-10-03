@@ -32,13 +32,16 @@ pub mod error;
 #[no_mangle]
 pub extern "C" fn kernel_main() {
     let vga = vga::Buffer::new();
-    let terminal = terminal::Terminal::new(vga);
-    debug::initialize(terminal);
+    let mut terminal = terminal::Terminal::new(vga);
+    // debug::initialize(terminal);
+
+    terminal.clear();
+    terminal.puts("foo bar");
 
     for _ in 0.. {
         let bda = bios::data_area();
 
-        debug!("Data: {:?}", bda);
+        // debug!("Data: {:?}", bda);
     }
 }
 

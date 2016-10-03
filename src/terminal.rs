@@ -5,7 +5,7 @@ use core::fmt;
 
 pub struct Terminal
 {
-    vga: vga::Buffer,
+    pub vga: vga::Buffer,
 
     row: usize,
     column: usize,
@@ -90,11 +90,15 @@ impl Terminal
             self.row += 1;
             self.column = 0
         }
+
+        self.update_cursor();
     }
 
     pub fn position(&mut self, x: usize, y: usize) {
         self.row = y;
         self.column = x;
+
+        self.update_cursor();
     }
 
     pub fn puts(&mut self, s: &str) {
@@ -109,6 +113,12 @@ impl Terminal
 
         self.row = 0;
         self.column = 0;
+
+        self.update_cursor();
+    }
+
+    fn update_cursor(&mut self) {
+        self.vga.set_cursor_position(self.column, self.row);
     }
 }
 

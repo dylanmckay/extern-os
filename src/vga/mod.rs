@@ -1,10 +1,18 @@
 pub use self::style::{Style, Color};
-pub mod style;
 
+pub mod style;
+pub mod cursor;
+
+use io;
 use core::slice;
 use core::ops;
 
+pub const PORT_ADDRESS: io::port::Address = io::port::Address(0x3d4);
 pub const MEMORY: *mut Cell = 0xb8000 as _;
+
+pub fn port() -> io::Port {
+    io::Port::open(PORT_ADDRESS)
+}
 
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
@@ -43,6 +51,11 @@ impl Buffer
         for c in self.memory.iter_mut() {
             *c = cell.clone();
         }
+    }
+
+    pub fn set_cursor_position(&mut self, x: usize, y: usize) {
+        let index = calculate_index(x, y, self.width);
+        cursor::set_position(index as _);
     }
 
     pub fn width(&self) -> usize { self.width }
