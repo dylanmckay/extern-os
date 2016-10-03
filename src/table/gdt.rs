@@ -25,6 +25,18 @@ pub struct Entry
     pub flags: u8,
 }
 
+#[derive(Copy, Clone)]
+pub struct Access
+{
+    pub present: bool,
+    pub privilege: u8,
+    pub executable: bool,
+    pub direction_confirming: bool,
+    pub readable_writable: bool,
+    pub accessed: bool,
+    pub granularity: bool,
+}
+
 #[repr(C, packed)]
 pub struct RawEntry(pub [u8; 8]);
 

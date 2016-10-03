@@ -41,9 +41,18 @@ pub extern "C" fn kernel_main() {
     terminal.clear();
     debug::initialize(terminal);
 
+    build_gdt();
+
     for _ in 0.. {
         let bda = bios::data_area();
         debug!("Data: {:?}", bda.serial_ports);
     }
+}
+
+fn build_gdt() {
+    let entries = [
+        // The null entry.
+        table::gdt::Entry { base: 0, limit: 0, access: 0, flags: 0 },
+    ];
 }
 
