@@ -10,6 +10,10 @@
 
 #![no_std]
 
+#[cfg(test)]
+#[macro_use]
+extern crate std;
+
 extern crate extern_os_allocator;
 extern crate collections;
 extern crate alloc;
@@ -19,6 +23,7 @@ pub use self::error::Error;
 
 pub mod io;
 pub mod vga;
+pub mod drivers;
 pub mod interrupt;
 pub mod table;
 pub mod bios;
@@ -32,14 +37,13 @@ pub mod error;
 pub extern "C" fn kernel_main() {
     let vga = vga::Buffer::new();
     let mut terminal = vga::Terminal::new(vga);
-    // debug::initialize(terminal);
 
     terminal.clear();
-    terminal.puts("foo bar");
+    debug::initialize(terminal);
 
     for _ in 0.. {
-        // let bda = bios::data_area();
-        // debug!("Data: {:?}", bda);
+        let bda = bios::data_area();
+        debug!("Data: {:?}", bda.serial_ports);
     }
 }
 
