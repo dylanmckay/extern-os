@@ -1,7 +1,9 @@
 pub use self::style::{Style, Color};
+pub use self::terminal::Terminal;
 
 pub mod style;
 pub mod cursor;
+pub mod terminal;
 
 use io;
 use core::slice;

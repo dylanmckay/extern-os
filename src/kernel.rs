@@ -22,7 +22,6 @@ pub mod vga;
 pub mod interrupt;
 pub mod table;
 pub mod bios;
-pub mod terminal;
 pub mod support;
 pub mod prelude;
 #[macro_use]
@@ -32,15 +31,14 @@ pub mod error;
 #[no_mangle]
 pub extern "C" fn kernel_main() {
     let vga = vga::Buffer::new();
-    let mut terminal = terminal::Terminal::new(vga);
+    let mut terminal = vga::Terminal::new(vga);
     // debug::initialize(terminal);
 
     terminal.clear();
     terminal.puts("foo bar");
 
     for _ in 0.. {
-        let bda = bios::data_area();
-
+        // let bda = bios::data_area();
         // debug!("Data: {:?}", bda);
     }
 }
