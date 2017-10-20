@@ -1,7 +1,7 @@
 [package]
 name = "extern-os-allocator"
 version = "0.1.0"
-authors = ["Dylan McKay <dylanmckay34@gmail.com>"]
+authors = ["Dylan McKay <me@dylanmckay.io>"]
 
 [lib]
 path = "lib.rs"
